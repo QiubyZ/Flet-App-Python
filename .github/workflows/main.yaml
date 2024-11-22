@@ -1,0 +1,54 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+on:
+  push:
+    branches:
+      - main
+      - pull_request
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: "write"
+      
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          check-latest: true
+          
+      - name: Installing Flet
+        run: |
+          pip install flet --upgrade
+          
+      - name: Installing Flutter
+        run: sudo snap install flutter --classic
+        
+      - name: Configure Path Flutter
+        run: export PATH="$PATH:/snap/bin"
+        
+      - name: Accept License
+        run: yes | flutter doctor --android-licenses
+        
+      - name: Test Build Source
+        run: |
+          flet build apk --flutter-build-args=--target-platform \
+          --flutter-build-args=android-arm64 -o ${{workspace}}/solitaire.apk
+          
+      - name: Show Dir
+        run: ls -l -a
+          
+      - name: Buat Rilis Baru
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1
+          name: Solitaire Python Flet
+          files: ${{workspace}}/solitaire.apk
+          draft: false
+          prerelease: false
+          generate_release_notes: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+   
