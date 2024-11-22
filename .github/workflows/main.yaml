@@ -41,6 +41,8 @@ jobs:
       - name: Show Dir
         run: ls -l -a
         
+      - uses: actions/checkout@v4
+      
       - name: Buat Rilis Baru
         uses: softprops/action-gh-release@v2
         with:
