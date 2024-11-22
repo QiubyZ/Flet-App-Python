@@ -36,7 +36,7 @@ jobs:
       - name: Test Build Source
         run: |
           flet build apk --flutter-build-args=--target-platform \
-          --flutter-build-args=android-arm64 -o ${{workspace}}/solitaire.apk
+          --flutter-build-args=android-arm64 -o ${{github.workspace}}/solitaire.apk
           
       - name: Show Dir
         run: ls -l -a
@@ -46,7 +46,7 @@ jobs:
         with:
           tag_name: v1
           name: Solitaire Python Flet
-          files: ${{workspace}}/solitaire.apk
+          files: ${{github.workspace}}/solitaire.apk
           draft: false
           prerelease: false
           generate_release_notes: false
