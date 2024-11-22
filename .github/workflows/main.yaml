@@ -38,6 +38,7 @@ jobs:
           flet build apk --flutter-build-args=--target-platform --flutter-build-args=android-arm64 -o ./solitaire.apk
           zip -r ./release.zip .
           
+          
       - name: Show Dir
         run: ls -l -a
         
