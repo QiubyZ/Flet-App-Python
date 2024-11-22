@@ -35,20 +35,22 @@ jobs:
         
       - name: Test Build Source
         run: |
-          flet build apk --flutter-build-args=--target-platform \
-          --flutter-build-args=android-arm64 -o ${{github.workspace}}/solitaire.apk
+          flet build apk --flutter-build-args=--target-platform --flutter-build-args=android-arm64 -o ./solitaire.apk
+          zip -r ./release.zip .
           
       - name: Show Dir
         run: ls -l -a
         
-      - uses: actions/checkout@v4
       
       - name: Buat Rilis Baru
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v1
           name: Solitaire Python Flet
-          files: ${{github.workspace}}/solitaire.apk
+          files: |
+            ./*.apk
+            ./*.zip
+            
           draft: false
           prerelease: false
           generate_release_notes: false
