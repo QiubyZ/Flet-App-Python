@@ -49,7 +49,7 @@ jobs:
           tag_name: v1
           name: Solitaire Python Flet
           files: |
-            ./*.apk
+            ./solitaire.apk/*.apk
             ./*.zip
             
           draft: false
